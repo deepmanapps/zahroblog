@@ -1,0 +1,52 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (replyComments(); as replyCommentsRef) {
+      <div>
+        <h2 data-cy="replyCommentsDetailsHeading"><span jhiTranslate="zahroApp.replyComments.detail.title">Reply Comments</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="zahroApp.replyComments.replyId">Reply Id</span></dt>
+          <dd>
+            <span>{{ replyCommentsRef.replyId }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.replyComments.content">Content</span></dt>
+          <dd>
+            <span>{{ replyCommentsRef.content }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.replyComments.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ replyCommentsRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.replyComments.parentCommentId">Parent Comment Id</span></dt>
+          <dd>
+            @if (replyComments()!.parentCommentId) {
+              <div>
+                <a [routerLink]="['/comments', replyComments()!.parentCommentId?.commentId, 'view']">{{
+                  replyCommentsRef.parentCommentId?.commentId
+                }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="zahroApp.replyComments.user">User</span></dt>
+          <dd>
+            <span>{{ replyCommentsRef.user?.id }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/reply-comments', replyCommentsRef.replyId, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

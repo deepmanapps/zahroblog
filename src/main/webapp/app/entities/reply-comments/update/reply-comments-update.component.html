@@ -1,0 +1,97 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2
+        id="jhi-reply-comments-heading"
+        data-cy="ReplyCommentsCreateUpdateHeading"
+        jhiTranslate="zahroApp.replyComments.home.createOrEditLabel"
+      >
+        Créer ou éditer un Reply Comments
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.replyId.value !== null) {
+          <div class="mb-3">
+            <label class="form-label" for="field_replyId" jhiTranslate="zahroApp.replyComments.replyId">Reply Id</label>
+            <input
+              type="number"
+              class="form-control"
+              name="replyId"
+              id="field_replyId"
+              data-cy="replyId"
+              formControlName="replyId"
+              [readonly]="true"
+            />
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_content" jhiTranslate="zahroApp.replyComments.content">Content</label>
+          <input type="text" class="form-control" name="content" id="field_content" data-cy="content" formControlName="content" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="zahroApp.replyComments.createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_parentCommentId" jhiTranslate="zahroApp.replyComments.parentCommentId"
+            >Parent Comment Id</label
+          >
+          <select
+            class="form-control"
+            id="field_parentCommentId"
+            data-cy="parentCommentId"
+            name="parentCommentId"
+            formControlName="parentCommentId"
+            [compareWith]="compareComments"
+          >
+            <option [ngValue]="null"></option>
+            @for (commentsOption of commentsSharedCollection; track $index) {
+              <option [ngValue]="commentsOption">{{ commentsOption.commentId }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_user" jhiTranslate="zahroApp.replyComments.user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            <option [ngValue]="null"></option>
+            @for (userOption of usersSharedCollection; track $index) {
+              <option [ngValue]="userOption">{{ userOption.id }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>

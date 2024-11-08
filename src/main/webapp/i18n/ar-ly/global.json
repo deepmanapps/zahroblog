@@ -8,7 +8,10 @@
       "entities": {
         "main": "الكيانات",
         "jhipster-needle-menu-add-entry": "JHipster will add additional entities here (do not translate!)",
-        "adminAuthority": "Authority"
+        "comments": "Comments",
+        "posts": "Posts",
+        "replyComments": "Reply Comments",
+        "tags": "Tags"
       },
       "account": {
         "main": "الحساب",

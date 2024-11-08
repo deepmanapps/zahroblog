@@ -1,0 +1,50 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (comments(); as commentsRef) {
+      <div>
+        <h2 data-cy="commentsDetailsHeading"><span jhiTranslate="zahroApp.comments.detail.title">Comments</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="zahroApp.comments.commentId">Comment Id</span></dt>
+          <dd>
+            <span>{{ commentsRef.commentId }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.comments.content">Content</span></dt>
+          <dd>
+            <span>{{ commentsRef.content }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.comments.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ commentsRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.comments.posts">Posts</span></dt>
+          <dd>
+            @if (comments()!.posts) {
+              <div>
+                <a [routerLink]="['/posts', comments()!.posts?.postId, 'view']">{{ commentsRef.posts?.postId }}</a>
+              </div>
+            }
+          </dd>
+          <dt><span jhiTranslate="zahroApp.comments.user">User</span></dt>
+          <dd>
+            <span>{{ commentsRef.user?.id }}</span>
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/comments', commentsRef.commentId, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

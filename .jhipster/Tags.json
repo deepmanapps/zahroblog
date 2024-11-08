@@ -1,0 +1,32 @@
+{
+  "annotations": {
+    "changelogDate": "20241108231302"
+  },
+  "applications": "*",
+  "dto": "mapstruct",
+  "fields": [
+    {
+      "fieldName": "tagId",
+      "fieldType": "Long",
+      "options": {
+        "id": true
+      }
+    },
+    {
+      "fieldName": "tagName",
+      "fieldType": "String"
+    }
+  ],
+  "name": "Tags",
+  "relationships": [
+    {
+      "otherEntityName": "posts",
+      "otherEntityRelationshipName": "tags",
+      "relationshipName": "posts",
+      "relationshipSide": "right",
+      "relationshipType": "many-to-many"
+    }
+  ],
+  "searchEngine": "no",
+  "service": "serviceImpl"
+}
