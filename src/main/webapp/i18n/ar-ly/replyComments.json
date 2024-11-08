@@ -1,0 +1,27 @@
+{
+  "zahroApp": {
+    "replyComments": {
+      "home": {
+        "title": "Reply Comments",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Reply Comments جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Reply Comments",
+        "notFound": "لم يتم العثور على Reply Comments"
+      },
+      "created": "Reply Comments جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Reply Comments تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Reply Comments تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Reply Comments {{ id }}؟"
+      },
+      "detail": {
+        "title": "Reply Comments"
+      },
+      "replyId": "Reply Id",
+      "content": "Content",
+      "createdAt": "Created At",
+      "parentCommentId": "Parent Comment Id",
+      "user": "User"
+    }
+  }
+}

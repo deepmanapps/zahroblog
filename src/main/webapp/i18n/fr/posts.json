@@ -1,0 +1,29 @@
+{
+  "zahroApp": {
+    "posts": {
+      "home": {
+        "title": "Posts",
+        "refreshListLabel": "Actualiser la liste",
+        "createLabel": "Créer un nouveau Posts",
+        "createOrEditLabel": "Créer ou éditer un Posts",
+        "notFound": "Aucun Posts trouvé"
+      },
+      "created": "Un nouveau Posts a été créé avec l'identifiant {{ param }}",
+      "updated": "Le Posts avec l'identifiant {{ param }} a été mis à jour",
+      "deleted": "Le Posts avec l'identifiant {{ param }} a été supprimé",
+      "delete": {
+        "question": "Êtes-vous certain de vouloir supprimer le Posts {{ id }} ?"
+      },
+      "detail": {
+        "title": "Posts"
+      },
+      "postId": "Post Id",
+      "title": "Title",
+      "content": "Content",
+      "createdAt": "Created At",
+      "user": "User",
+      "tags": "Tags",
+      "comments": "Comments"
+    }
+  }
+}

@@ -1,0 +1,25 @@
+{
+  "zahroApp": {
+    "tags": {
+      "home": {
+        "title": "Tags",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Tags جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Tags",
+        "notFound": "لم يتم العثور على Tags"
+      },
+      "created": "Tags جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Tags تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Tags تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Tags {{ id }}؟"
+      },
+      "detail": {
+        "title": "Tags"
+      },
+      "tagId": "Tag Id",
+      "tagName": "Tag Name",
+      "posts": "Posts"
+    }
+  }
+}

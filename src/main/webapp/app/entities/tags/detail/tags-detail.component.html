@@ -1,0 +1,43 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (tags(); as tagsRef) {
+      <div>
+        <h2 data-cy="tagsDetailsHeading"><span jhiTranslate="zahroApp.tags.detail.title">Tags</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="zahroApp.tags.tagId">Tag Id</span></dt>
+          <dd>
+            <span>{{ tagsRef.tagId }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.tags.tagName">Tag Name</span></dt>
+          <dd>
+            <span>{{ tagsRef.tagName }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.tags.posts">Posts</span></dt>
+          <dd>
+            @for (posts of tagsRef.posts; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/posts', posts.postId, 'view']">{{ posts?.postId }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/tags', tagsRef.tagId, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

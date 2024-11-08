@@ -1,0 +1,100 @@
+<div>
+  <h2 id="page-heading" data-cy="TagsHeading">
+    <span jhiTranslate="zahroApp.tags.home.title">Tags</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="zahroApp.tags.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-tags"
+        [routerLink]="['/tags/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="zahroApp.tags.home.createLabel">Créer un nouveau Tags</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (tags?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="zahroApp.tags.home.notFound">Aucun Tags trouvé</span>
+    </div>
+  }
+
+  @if (tags && tags.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="tagId">
+              <div class="d-flex">
+                <span jhiTranslate="zahroApp.tags.tagId">Tag Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="tagName">
+              <div class="d-flex">
+                <span jhiTranslate="zahroApp.tags.tagName">Tag Name</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="posts.postId">
+              <div class="d-flex">
+                <span jhiTranslate="zahroApp.tags.posts">Posts</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (tags of tags; track trackTagId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/tags', tags.tagId, 'view']">{{ tags.tagId }}</a>
+              </td>
+              <td>{{ tags.tagName }}</td>
+              <td>
+                @for (posts of tags.posts; track $index; let last = $last) {
+                  <span>
+                    <a class="form-control-static" [routerLink]="['/posts', posts.postId, 'view']">{{ posts.postId }}</a
+                    >{{ last ? '' : ', ' }}
+                  </span>
+                }
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/tags', tags.tagId, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/tags', tags.tagId, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(tags)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

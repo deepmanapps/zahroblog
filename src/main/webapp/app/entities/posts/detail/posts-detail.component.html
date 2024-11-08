@@ -1,0 +1,55 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    @if (posts(); as postsRef) {
+      <div>
+        <h2 data-cy="postsDetailsHeading"><span jhiTranslate="zahroApp.posts.detail.title">Posts</span></h2>
+
+        <hr />
+
+        <jhi-alert-error></jhi-alert-error>
+
+        <jhi-alert></jhi-alert>
+
+        <dl class="row-md jh-entity-details">
+          <dt><span jhiTranslate="zahroApp.posts.postId">Post Id</span></dt>
+          <dd>
+            <span>{{ postsRef.postId }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.posts.title">Title</span></dt>
+          <dd>
+            <span>{{ postsRef.title }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.posts.content">Content</span></dt>
+          <dd>
+            <span>{{ postsRef.content }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.posts.createdAt">Created At</span></dt>
+          <dd>
+            <span>{{ postsRef.createdAt | formatMediumDatetime }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.posts.user">User</span></dt>
+          <dd>
+            <span>{{ postsRef.user?.id }}</span>
+          </dd>
+          <dt><span jhiTranslate="zahroApp.posts.tags">Tags</span></dt>
+          <dd>
+            @for (tags of postsRef.tags; track $index; let last = $last) {
+              <span>
+                <a [routerLink]="['/tags', tags.tagId, 'view']">{{ tags?.tagId }}</a
+                >{{ last ? '' : ', ' }}
+              </span>
+            }
+          </dd>
+        </dl>
+
+        <button type="submit" (click)="previousState()" class="btn btn-info" data-cy="entityDetailsBackButton">
+          <fa-icon icon="arrow-left"></fa-icon>&nbsp;<span jhiTranslate="entity.action.back">Retour</span>
+        </button>
+
+        <button type="button" [routerLink]="['/posts', postsRef.postId, 'edit']" class="btn btn-primary">
+          <fa-icon icon="pencil-alt"></fa-icon>&nbsp;<span jhiTranslate="entity.action.edit">Editer</span>
+        </button>
+      </div>
+    }
+  </div>
+</div>

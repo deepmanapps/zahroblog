@@ -1,0 +1,27 @@
+{
+  "zahroApp": {
+    "comments": {
+      "home": {
+        "title": "Comments",
+        "refreshListLabel": "تحديث القائمة",
+        "createLabel": "إنشاء Comments جديد",
+        "createOrEditLabel": "إنشاء أو تعديل Comments",
+        "notFound": "لم يتم العثور على Comments"
+      },
+      "created": "Comments جديد تم إنشاؤه بالمعرف {{ param }}",
+      "updated": "Comments تم تحديثه بالمعرف {{ param }}",
+      "deleted": "Comments تم حذفه بالمعرف {{ param }}",
+      "delete": {
+        "question": "هل أنت متأكد أنك تريد حذف Comments {{ id }}؟"
+      },
+      "detail": {
+        "title": "Comments"
+      },
+      "commentId": "Comment Id",
+      "content": "Content",
+      "createdAt": "Created At",
+      "posts": "Posts",
+      "user": "User"
+    }
+  }
+}

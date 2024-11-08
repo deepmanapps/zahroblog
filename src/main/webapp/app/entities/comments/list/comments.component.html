@@ -1,0 +1,116 @@
+<div>
+  <h2 id="page-heading" data-cy="CommentsHeading">
+    <span jhiTranslate="zahroApp.comments.home.title">Comments</span>
+
+    <div class="d-flex justify-content-end">
+      <button class="btn btn-info me-2" (click)="load()" [disabled]="isLoading">
+        <fa-icon icon="sync" [animation]="isLoading ? 'spin' : undefined"></fa-icon>
+        <span jhiTranslate="zahroApp.comments.home.refreshListLabel">Actualiser la liste</span>
+      </button>
+
+      <button
+        id="jh-create-entity"
+        data-cy="entityCreateButton"
+        class="btn btn-primary jh-create-entity create-comments"
+        [routerLink]="['/comments/new']"
+      >
+        <fa-icon icon="plus"></fa-icon>
+        <span jhiTranslate="zahroApp.comments.home.createLabel">Créer un nouveau Comments</span>
+      </button>
+    </div>
+  </h2>
+
+  <jhi-alert-error></jhi-alert-error>
+
+  <jhi-alert></jhi-alert>
+
+  @if (comments?.length === 0) {
+    <div class="alert alert-warning" id="no-result">
+      <span jhiTranslate="zahroApp.comments.home.notFound">Aucun Comments trouvé</span>
+    </div>
+  }
+
+  @if (comments && comments.length > 0) {
+    <div class="table-responsive table-entities" id="entities">
+      <table class="table table-striped" aria-describedby="page-heading">
+        <thead>
+          <tr jhiSort [sortState]="sortState" (sortChange)="navigateToWithComponentValues($event)">
+            <th scope="col" jhiSortBy="commentId">
+              <div class="d-flex">
+                <span jhiTranslate="zahroApp.comments.commentId">Comment Id</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="content">
+              <div class="d-flex">
+                <span jhiTranslate="zahroApp.comments.content">Content</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="createdAt">
+              <div class="d-flex">
+                <span jhiTranslate="zahroApp.comments.createdAt">Created At</span>
+
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="posts.postId">
+              <div class="d-flex">
+                <span jhiTranslate="zahroApp.comments.posts">Posts</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col" jhiSortBy="user.id">
+              <div class="d-flex">
+                <span jhiTranslate="zahroApp.comments.user">User</span>
+                <fa-icon class="p-1" icon="sort"></fa-icon>
+              </div>
+            </th>
+            <th scope="col"></th>
+          </tr>
+        </thead>
+        <tbody infinite-scroll (scrolled)="loadNextPage()" [infiniteScrollDisabled]="!hasMorePage()" [infiniteScrollDistance]="0">
+          @for (comments of comments; track trackCommentId) {
+            <tr data-cy="entityTable">
+              <td>
+                <a [routerLink]="['/comments', comments.commentId, 'view']">{{ comments.commentId }}</a>
+              </td>
+              <td>{{ comments.content }}</td>
+              <td>{{ comments.createdAt | formatMediumDatetime }}</td>
+              <td>
+                @if (comments.posts) {
+                  <div>
+                    <a [routerLink]="['/posts', comments.posts.postId, 'view']">{{ comments.posts.postId }}</a>
+                  </div>
+                }
+              </td>
+              <td>
+                {{ comments.user?.id }}
+              </td>
+              <td class="text-end">
+                <div class="btn-group">
+                  <a [routerLink]="['/comments', comments.commentId, 'view']" class="btn btn-info btn-sm" data-cy="entityDetailsButton">
+                    <fa-icon icon="eye"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.view">Voir</span>
+                  </a>
+
+                  <a [routerLink]="['/comments', comments.commentId, 'edit']" class="btn btn-primary btn-sm" data-cy="entityEditButton">
+                    <fa-icon icon="pencil-alt"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.edit">Editer</span>
+                  </a>
+
+                  <button type="submit" (click)="delete(comments)" class="btn btn-danger btn-sm" data-cy="entityDeleteButton">
+                    <fa-icon icon="times"></fa-icon>
+                    <span class="d-none d-md-inline" jhiTranslate="entity.action.delete">Supprimer</span>
+                  </button>
+                </div>
+              </td>
+            </tr>
+          }
+        </tbody>
+      </table>
+    </div>
+  }
+</div>

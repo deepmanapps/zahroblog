@@ -1,0 +1,110 @@
+<div class="d-flex justify-content-center">
+  <div class="col-8">
+    <form name="editForm" novalidate (ngSubmit)="save()" [formGroup]="editForm">
+      <h2 id="jhi-posts-heading" data-cy="PostsCreateUpdateHeading" jhiTranslate="zahroApp.posts.home.createOrEditLabel">
+        Créer ou éditer un Posts
+      </h2>
+
+      <div>
+        <jhi-alert-error></jhi-alert-error>
+
+        @if (editForm.controls.postId.value !== null) {
+          @let postIdRef = editForm.get('postId')!;
+          <div class="mb-3">
+            <label class="form-label" for="field_postId" jhiTranslate="zahroApp.posts.postId">Post Id</label>
+            <input
+              type="number"
+              class="form-control"
+              name="postId"
+              id="field_postId"
+              data-cy="postId"
+              formControlName="postId"
+              [readonly]="true"
+            />
+            @if (postIdRef.invalid && (postIdRef.dirty || postIdRef.touched)) {
+              <div>
+                @if (editForm.get('postId')?.errors?.required) {
+                  <small class="form-text text-danger" jhiTranslate="entity.validation.required">Ce champ est obligatoire.</small>
+                }
+                <small
+                  class="form-text text-danger"
+                  [hidden]="!editForm.get('postId')?.errors?.number"
+                  jhiTranslate="entity.validation.number"
+                  >Ce champ doit être un nombre.</small
+                >
+              </div>
+            }
+          </div>
+        }
+
+        <div class="mb-3">
+          <label class="form-label" for="field_title" jhiTranslate="zahroApp.posts.title">Title</label>
+          <input type="text" class="form-control" name="title" id="field_title" data-cy="title" formControlName="title" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_content" jhiTranslate="zahroApp.posts.content">Content</label>
+          <input type="text" class="form-control" name="content" id="field_content" data-cy="content" formControlName="content" />
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_createdAt" jhiTranslate="zahroApp.posts.createdAt">Created At</label>
+          <div class="d-flex">
+            <input
+              id="field_createdAt"
+              data-cy="createdAt"
+              type="datetime-local"
+              class="form-control"
+              name="createdAt"
+              formControlName="createdAt"
+              placeholder="YYYY-MM-DD HH:mm"
+            />
+          </div>
+        </div>
+
+        <div class="mb-3">
+          <label class="form-label" for="field_user" jhiTranslate="zahroApp.posts.user">User</label>
+          <select class="form-control" id="field_user" data-cy="user" name="user" formControlName="user" [compareWith]="compareUser">
+            <option [ngValue]="null"></option>
+            @for (userOption of usersSharedCollection; track $index) {
+              <option [ngValue]="userOption">{{ userOption.id }}</option>
+            }
+          </select>
+        </div>
+
+        <div class="mb-3">
+          <label for="field_tags" jhiTranslate="zahroApp.posts.tags">Tags</label>
+          <select
+            class="form-control"
+            id="field_tags"
+            data-cy="tags"
+            multiple
+            name="tags"
+            formControlName="tags"
+            [compareWith]="compareTags"
+          >
+            @for (tagsOption of tagsSharedCollection; track $index) {
+              <option [ngValue]="tagsOption">{{ tagsOption.tagId }}</option>
+            }
+          </select>
+        </div>
+      </div>
+
+      <div>
+        <button type="button" id="cancel-save" data-cy="entityCreateCancelButton" class="btn btn-secondary" (click)="previousState()">
+          <fa-icon icon="ban"></fa-icon>&nbsp;<span jhiTranslate="entity.action.cancel">Annuler</span>
+        </button>
+
+        <button
+          type="submit"
+          id="save-entity"
+          data-cy="entityCreateSaveButton"
+          [disabled]="editForm.invalid || isSaving"
+          class="btn btn-primary"
+        >
+          <fa-icon icon="save"></fa-icon>&nbsp;<span jhiTranslate="entity.action.save">Sauvegarder</span>
+        </button>
+      </div>
+    </form>
+  </div>
+</div>
